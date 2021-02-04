@@ -189,6 +189,38 @@
             </a>
             <a id="Homepage">
                 <h3>Create a homepage which directs to both</h3>
+                <p>
+                    We will use Apache to serve our homepage. We install it with:
+                </p>
+                <p class="code">
+                    sudo apt install apache2
+                </p>
+                <p>
+                    We can test that by going to the IP address we found above, but with no ports this time.
+                    This is because Apache is running on port 80, which is the default port that your web browser is
+                    going to.
+                </p>
+                <p>
+                    Now that we have Apache running, it's time to customise what it shows us. Navigate to
+                    <code>/var/www/html</code> inside of this, you will see a file called <code>index.html</code>.
+                    Open this in your text editor of choice, and delete everything inside. Replace it with the
+                    following:
+                    <pre class=code>
+
+    &lt!DOCTYPE html&gt
+    &lthtml&gt                        
+        &lthead&gt
+            &lttitle&gtRedirect&lt/title&gt
+        &lt/head&gt  
+        &ltbody&gt
+            &ltul&gt
+                &ltli&gt&lta href="&ltINSERT Nexcloud IP AND PORT HERE&gt"&gtNextcloud&lt/a&gt&lt/li&gt
+                &ltli&gt&lta href="&ltINSERT Nexcloud IP AND PORT HERE&gt"&gtNextcloud&lt/a&gt&lt/li&gt
+            &lt/ul&gt
+        &lt/body&gt    
+    %lt/html&gt                  
+                    </pre>
+                </p>
             </a>
 
         </div>
