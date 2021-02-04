@@ -29,6 +29,9 @@
                 <a href="#Homepage">
                     <li>Create a homepage which directs to both</li>
                 </a>
+                <a href="#Debug">
+                    <li>Troubleshooting</li>
+                </a>
             </ul>
         </div>
         <div class="header">
@@ -215,13 +218,30 @@
         &ltbody&gt
             &ltul&gt
                 &ltli&gt&lta href="&ltINSERT Nexcloud IP AND PORT HERE&gt"&gtNextcloud&lt/a&gt&lt/li&gt
-                &ltli&gt&lta href="&ltINSERT Nexcloud IP AND PORT HERE&gt"&gtNextcloud&lt/a&gt&lt/li&gt
+                &ltli&gt&lta href="&ltINSERT Invoice Ninja IP AND PORT HERE&gt"&gtInvoice Ninja&lt/a&gt&lt/li&gt
             &lt/ul&gt
         &lt/body&gt    
-    %lt/html&gt                  
-                    </pre>
-                </p>
+    &lt/html&gt</pre>
+            <a id="Debug">
+                <h3>Troubleshooting</h3>
             </a>
+            <ul>
+                <h5>Invoice Ninja error 500</h5>
+                This error seems to be caused by issues with the key we generated. To resolve it, rerun
+                <p class="code">sudo docker run --rm -it invoiceninja/invoiceninja php artisan key:generate --show</p>
+                and paste the result over the top of the code you already generated
+            </ul>
+            <ul>
+                <h5>Invoice Ninja warning about debug mode</h5>
+                This issue means you did not change the APP_DEBUG variable in the env file to false. It should be on
+                line 3 of the file
+            </ul>
+            <ul>
+                <h5>Invoice Ninja email</h5>
+                Some email services such as Gmail will require you to enable logging in from less secure devices in
+                order
+                for Invoice Ninja to access them
+            </ul>
 
         </div>
     </div>
