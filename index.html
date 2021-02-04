@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Install Invoice Ninja and Nextcloud wwith Docker</title>
+    <title>Install Invoice Ninja and Nextcloud with Docker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -115,7 +115,7 @@
                 And now we can finally install Docker itself:
             </p>
             <p class="code">
-                sudo apt update<br />
+                sudo apt update<br /><br />
                 sudo apt-get install docker-ce docker-ce-cli containerd.io
             </p>
 
@@ -150,11 +150,11 @@
                     which you can install and open in the directory with
                 </p>
                 <p class="code">
-                    Sudo snap install code –classic<br \> <br \>
-                    Code .
+                    sudo snap install code –classic<br \> <br \>
+                    code .
                 </p>
                 <p>Then, you’ll need to generate an app key</p>
-                <p class="code">docker run --rm -it invoiceninja/invoiceninja php artisan key:generate --show</p>
+                <p class="code">sudo docker run --rm -it invoiceninja/invoiceninja php artisan key:generate --show</p>
                 <p>
                     At the end of the output of that command will be a string of characters, beginning with base64.
                     Copy the entire line and paste it into the APP_KEY field of the env file. (Make sure to remove the
@@ -180,7 +180,7 @@
                     In this, find line 17 and change 80:80 to 8081:80. Save, exit, and then run the following command
                 </p>
                 <p class="code">
-                    Sudo docker-compose up -d
+                    sudo docker-compose up -d
                 </p>
                 <p>
                     You can test it by opening your browser and navigating to the address you typed before
