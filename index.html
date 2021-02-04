@@ -132,84 +132,97 @@
             </p>
             <a id="Nextcloud">
                 <h3>Install Nextcloud</h3>
-                <p>
-                    Nextcloud installation is really simple when you have Docker. You run a single command,
-                    and it downloads the Nextcloud image for Docker, runs it, and exposes a port so you can access it.
-                </p>
-                <p class="code">
-                    sudo docker run -d -p 8080:80 --restart unless-stopped nextcloud
-                </p>
             </a>
+            <p>
+                Nextcloud installation is really simple when you have Docker. You run a single command,
+                and it downloads the Nextcloud image for Docker, runs it, and exposes a port so you can access it.
+            </p>
+            <p class="code">
+                sudo docker run -d -p 8080:80 --restart unless-stopped nextcloud
+            </p>
+
             <a id="INinja">
                 <h3>Install Invoice Ninja</h3>
-                <p>First, we download the repo from GitHub, and then move into the directory</p>
-                <p class="code">
-                    git clone https://github.com/invoiceninja/dockerfiles.git<br /><br />
-                    cd dockerfiles
-                </p>
-                <p>
-                    Now, we need to make some changes to the env and docker-compose file.
-                    You can do this in your text editor of choice. I personally used VS Code,
-                    which you can install and open in the directory with
-                </p>
-                <p class="code">
-                    sudo snap install code –classic<br \> <br \>
-                    code .
-                </p>
-                <p>Then, you’ll need to generate an app key</p>
-                <p class="code">sudo docker run --rm -it invoiceninja/invoiceninja php artisan key:generate --show</p>
-                <p>
-                    At the end of the output of that command will be a string of characters, beginning with base64.
-                    Copy the entire line and paste it into the APP_KEY field of the env file. (Make sure to remove the
-                    placeholder!).
-                </p>
-                <p>
-                    We then need to change our APP_URL. This tutorial is focussing on running everything on your local
-                    network, so we will use our local IP address and port here, but if you are hosting somewhere off
-                    your network you will use your domain name in this field. To get the IP address for a local install,
-                    run:
-                </p>
-                <p class="code">
-                    hostname -I
-                </p>
-                <p>and copy the IPv4 address listed there (it should be 4 numbers separated by full stops).
-                    Paste that into the field and add your port like this:
-                </p>
-                <p class="code">
-                    http://192.168.0.27:8081
-                </p>
-                <p>
-                    That’s your env file finished! Save it, close it, and open your docker-compose file.
-                    In this, find line 17 and change 80:80 to 8081:80. Save, exit, and then run the following command
-                </p>
-                <p class="code">
-                    sudo chown -R 1500:1500 docker/app<br \> <br \>
-                    sudo docker-compose up -d
-                </p>
-                <p>
-                    You can test it by opening your browser and navigating to the address you typed before
-                </p>
             </a>
+            <p>First, we download the repo from GitHub, and then move into the directory</p>
+            <p class="code">
+                git clone https://github.com/invoiceninja/dockerfiles.git<br /><br />
+                cd dockerfiles
+            </p>
+            <p>
+                Now, we need to make some changes to the env and docker-compose file.
+                You can do this in your text editor of choice. I personally used VS Code,
+                which you can install and open in the directory with
+            </p>
+            <p class="code">
+                sudo snap install code --classic<br \> <br \>
+                code .
+            </p>
+            <p>Then, you’ll need to generate an app key</p>
+            <p class="code">sudo docker run --rm -it invoiceninja/invoiceninja php artisan key:generate --show</p>
+            <p>
+                At the end of the output of that command will be a string of characters, beginning with base64.
+                Copy the entire line and paste it into the APP_KEY field of the env file. (Make sure to remove the
+                placeholder!).
+            </p>
+            <p>
+                We then need to change our APP_URL. This tutorial is focussing on running everything on your local
+                network, so we will use our local IP address and port here, but if you are hosting somewhere off
+                your network you will use your domain name in this field. To get the IP address for a local install,
+                run:
+            </p>
+            <p class="code">
+                hostname -I
+            </p>
+            <p>and copy the IPv4 address listed there (it should be 4 numbers separated by full stops).
+                Paste that into the field and add your port like this:
+            </p>
+            <p class="code">
+                http://192.168.0.27:8081
+            </p>
+            <p>
+                Finally, we need to disable debug mode. This is useful for testing, but can be a security issue, and
+                we do not really need it right now. To do it, change
+            </p>
+            <p class="code">APP_DEBUG=true</p>
+            <p>to</p>
+            <p class="code">APP_DEBUG=false </p>
+            <p>
+                That’s your env file finished! Save it, close it, and open yourdocker-compose.yml file.
+                In this, find line 17 and change 80:80 to 8081:80. Save, exit, and then run the following command
+            </p>
+            <p class="code">
+                sudo chown -R 1500:1500 docker/app<br \> <br \>
+                sudo docker-compose up -d
+            </p>
+            <p>
+                Before we move on, we should go through the setup process. To do this,
+                go the address you put above in your browser and work through the steps on screen.
+                When you reach the database section, you need to change the host to db, and the database to ninja.
+                It should match your env file
+            </p>
+
             <a id="Homepage">
                 <h3>Create a homepage which directs to both</h3>
-                <p>
-                    We will use Apache to serve our homepage. We install it with:
-                </p>
-                <p class="code">
-                    sudo apt install apache2
-                </p>
-                <p>
-                    We can test that by going to the IP address we found above, but with no ports this time.
-                    This is because Apache is running on port 80, which is the default port that your web browser is
-                    going to.
-                </p>
-                <p>
-                    Now that we have Apache running, it's time to customise what it shows us. Navigate to
-                    <code>/var/www/html</code> inside of this, you will see a file called <code>index.html</code>.
-                    Open this in your text editor of choice, and delete everything inside. Replace it with the
-                    following:
-                    <pre class=code>
-
+            </a>
+            <p>
+                We will use Apache to serve our homepage. We install it with:
+            </p>
+            <p class="code">
+                sudo apt install apache2
+            </p>
+            <p>
+                We can test that by going to the IP address we found above, but with no ports this time.
+                This is because Apache is running on port 80, which is the default port that your web browser is
+                going to.
+            </p>
+            <p>
+                Now that we have Apache running, it's time to customise what it shows us. Navigate to
+                <code>/var/www/html</code> inside of this, you will see a file called <code>index.html</code>.
+                Open this in your text editor of choice, and delete everything inside. Replace it with the
+                following:
+            </p>
+            <pre class=code>
     &lt!DOCTYPE html&gt
     &lthtml&gt                        
         &lthead&gt
