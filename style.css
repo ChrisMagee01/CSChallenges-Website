@@ -5,6 +5,7 @@
 body, html{
     margin: 0px;
     height: 100%;
+    background-color: #F7F4F3;
 }
 
 h1{
@@ -12,10 +13,12 @@ h1{
 }
 
 .code{
-    background-color: #d3bfeb;
+    background-color: #1F4958;
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
-    border: 1px solid #bca0dc;
+    border: 1px solid #15303a;
     padding:10px;
+    
+    color: #F7F4F3;
 }
 .page{
     display: grid;
@@ -27,10 +30,9 @@ h1{
 .nav{
     height: 100%; /* Full-height: remove this if you want "auto" height */
     position: fixed;
-    background-color: #111; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     width:20%;
-    background-color: #bca0dc;
+    background-color: #71A7B7;
     margin: 0px;
     height: 100%;
 }
@@ -45,14 +47,15 @@ h1{
 
 .nav ul li {
     padding:10px;
-    background-color: #7950a5;
+    background-color: #1F4958;
     margin: 0px;
     transition: all .1s ease-in-out; 
+    color: #F7F4F3;
 }
 
 .nav ul li:hover {
     padding:20px 10px;
-    background-color: #6f3aa7;
+    background-color: #15303a;
     margin: 0px;
 }
 
@@ -66,15 +69,16 @@ h1{
     grid-column: 2 / 4;
     margin: 0px;
     grid-row: 1/2;
-    border-bottom: 2px solid #7950a5;
+    border-bottom: 2px solid #71A7B7;
 }
 
 
 .nav_title{
-    background-color: #b491c8;
+    background-color: #15303a;
     margin: 0px;
     padding:25px;
     text-align: right;
+    color: #F7F4F3;
 }
 
 .main_content{
@@ -84,7 +88,7 @@ h1{
 }
 
 .main_content h3{
-    color:#b491c8;
+    color:#9C6964;
     padding:25px 0px;
     font-size: xx-large;
     margin:0px;
