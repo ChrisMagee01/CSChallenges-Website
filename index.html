@@ -16,6 +16,9 @@
                 <a href="#Why">
                     <li>Why would I do this?</li>
                 </a>
+                <a href="#prerequisites">
+                    <li>Prerequisites</li>
+                </a>
 
                 <a href="#Docker">
                     <li>Install Docker</li>
@@ -31,6 +34,9 @@
                 </a>
                 <a href="#Debug">
                     <li>Troubleshooting</li>
+                </a>
+                <a href="#further">
+                    <li>Further Reading</li>
                 </a>
             </ul>
         </div>
@@ -62,6 +68,14 @@
                 to set up both inside of Docker containers on a Ubuntu server, and have a homepage which
                 can direct you between the two using Apache
             </p>
+
+            <a id="prerequisites">
+                <h3>Prerequisites</h3>
+                <ul>
+                    <li>Ubuntu 20.04.02 LTS</li>
+                    <li>A network only accessible to secure devices</li>
+                </ul>
+            </a>
 
             <a id="Docker">
                 <h3>Install Docker</h3>
@@ -235,27 +249,59 @@
             &lt/ul&gt
         &lt/body&gt    
     &lt/html&gt</pre>
+
             <a id="Debug">
                 <h3>Troubleshooting</h3>
             </a>
-            <ul>
-                <h5>Invoice Ninja error 500</h5>
+
+            <h5>Invoice Ninja error 500</h5>
+            <p>
                 This error seems to be caused by issues with the key we generated. To resolve it, rerun
-                <p class="code">sudo docker run --rm -it invoiceninja/invoiceninja php artisan key:generate --show</p>
-                and paste the result over the top of the code you already generated
-            </ul>
-            <ul>
-                <h5>Invoice Ninja warning about debug mode</h5>
+            </p>
+            <p class="code">sudo docker run --rm -it invoiceninja/invoiceninja php artisan key:generate --show</p>
+            and paste the result over the top of the code you already generated
+
+            <h5>Invoice Ninja warning about debug mode</h5>
+            <p>
                 This issue means you did not change the APP_DEBUG variable in the env file to false. It should be on
                 line 3 of the file
-            </ul>
-            <ul>
-                <h5>Invoice Ninja email</h5>
+            </p>
+            <h5>Invoice Ninja email</h5>
+            <p>
                 Some email services such as Gmail will require you to enable logging in from less secure devices in
-                order
-                for Invoice Ninja to access them
-            </ul>
+                order for Invoice Ninja to access them
+            </p>
 
+
+            <a id="further">
+                <h3>Further Reading</h3>
+            </a>
+            <ul>
+                <li>
+                    <h2>HTML and css to customise your home page</h2>
+                    <ul>
+                        <li><a href="https://www.codecademy.com/learn/learn-html">Codeacademy</a></li>
+                        <li><a href="https://www.w3schools.com/html/">W3 Schools</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>Making it externally accessible</h2>
+                    <ul>
+                        <li><a href="https://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/">Port
+                                forwarding</a></li>
+                        <li><a href="https://domains.google.com/">Using a domain</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>Security</h2>
+                    <ul>
+                        <li><a href="https://www.cloudflare.com/en-gb/learning/ssl/what-is-https/">What is HTTPS</a>
+                        </li>
+                        <li><a href="https://letsencrypt.org/">Free Certificates</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </a>
         </div>
     </div>
 </body>
