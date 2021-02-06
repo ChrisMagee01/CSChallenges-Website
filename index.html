@@ -19,6 +19,9 @@
                 <a href="#prerequisites">
                     <li>Prerequisites</li>
                 </a>
+                <a href="#video">
+                    <li>Video Guide</li>
+                </a>
 
                 <a href="#Docker">
                     <li>Install Docker</li>
@@ -64,18 +67,24 @@
                 can form the backbone of any business infrastructure.
             </p>
             <p>
-                In this tutorial, you will learn how
-                to set up both inside of Docker containers on a Ubuntu server, and have a homepage which
-                can direct you between the two using Apache
+                In this tutorial, you will learn how to set up both inside of Docker containers on a Ubuntu
+                server, and have a homepage which can direct you between the two using Apache
             </p>
+            <a id="video">
+                <h3>Video Guide</h3>
+            </a>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/wTt9T2zvL9o" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
 
             <a id="prerequisites">
                 <h3>Prerequisites</h3>
-                <ul>
-                    <li>Ubuntu 20.04.02 LTS</li>
-                    <li>A network only accessible to secure devices</li>
-                </ul>
             </a>
+            <ul>
+                <li>Ubuntu 20.04.02 LTS</li>
+                <li>A network only accessible to secure devices</li>
+            </ul>
+
 
             <a id="Docker">
                 <h3>Install Docker</h3>
@@ -84,10 +93,15 @@
                 The first thing you need to do is to install Docker. This part of the tutorial is
                 almost identical to the <a href="https://docs.docker.com/engine/install/ubuntu/">official Docker
                     setup guide</a>, so you can follow it there if you would prefer. Both of the services will
-                run inside of Docker containers, so you can’t run them until it fully setup.
+                run inside of Docker containers, so you can’t run them until it fully setup. Docker is a special
+                piece of software which allows other pieces to run inside of Docker Containers. These containers isolate
+                different services and prevent them from conflicting with each other
             </p>
             <p>
-                Make sure there are no older versions installed before you begin:
+                Make sure there are no older versions installed before you begin by running a command in terminal. The
+                terminal is just a way to tell the computer what to do through typing rather than clicking. It is more
+                powerful and faster than the normal way of using the mouse for many tasks <br />
+                You can open the terminal by pressing ctrl + alt + t:
             </p>
             <p class="code">
                 sudo apt-get remove docker docker-engine docker.io containerd runc
@@ -103,8 +117,9 @@
                 things just to make sure we always get the most up to date version
             </p>
             <p>
-                Docker needs us to be able to use apt over https, so we need to install some packages to
-                allow that before we can start installing Docker
+                Docker needs us to be able to use apt over https, which is just a secure version of the protocol that
+                you access the internet over.
+                We need to install some packages to allow that before we can start installing Docker
             </p>
             <p class="code">
                 sudo apt install \<br />
@@ -114,13 +129,14 @@
                 gnupg-agent \<br />
                 software-properties-common
             </p>
-            <p>Now add Docker's GPG key to your system:</p>
+            <p>Now add Docker's GPG key to your system. The GPG key is just a way to verify the information being sent
+            </p>
             <p class="code">
                 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
             </p>
             <p>
-                We will use the stable version of docker, which means it is less likely to break,
-                but also isn’t as up to date as the test or nightly versions. We add the repository for it like this:
+                Before installing Docker, we need to add the repository it is located in.
+                A repository is just a place where software is stored
             </p>
             <p class="code">
                 sudo add-apt-repository \<br />
@@ -137,7 +153,7 @@
             </p>
 
             <p>
-                We will also install docker-compose, which allows images to be ran together.
+                We will also install docker-compose, which allows docker conatiners to be ran and configured together.
                 This is what Invoice Ninja uses, as it has a database and an Nginx server
                 running alongside the app iteself
             </p>
@@ -149,7 +165,9 @@
             </a>
             <p>
                 Nextcloud installation is really simple when you have Docker. You run a single command,
-                and it downloads the Nextcloud image for Docker, runs it, and exposes a port so you can access it.
+                and it downloads the Nextcloud image, runs it, and makes it accessible on a specific port.
+                A port is just a specfic place on your computers network. Each thing you run will communicate on a
+                different port
             </p>
             <p class="code">
                 sudo docker run -d -p 8080:80 --restart unless-stopped nextcloud
@@ -231,10 +249,19 @@
                 going to.
             </p>
             <p>
-                Now that we have Apache running, it's time to customise what it shows us. Navigate to
-                <code>/var/www/html</code> inside of this, you will see a file called <code>index.html</code>.
-                Open this in your text editor of choice, and delete everything inside. Replace it with the
-                following:
+                Now that we have Apache running, it's time to customise what it shows us. to do this, we need to run
+            </p>
+
+            <p class="code">
+                cd /var/www<br /> <br />
+                code .
+            </p>
+
+            <p>
+                This will open vs code in your /var/www directory. Inside of this, you'll see a folder called html,
+                and inside of that will be a file named index.html. Replace the contents of that file with the code
+                below
+
             </p>
             <pre class=code>
     &lt!DOCTYPE html&gt
@@ -249,24 +276,33 @@
             &lt/ul&gt
         &lt/body&gt    
     &lt/html&gt</pre>
-
+            <p>
+                Now, you just run
+            </p>
+            <p class="code">
+                sudo systemctl restart apache2
+            </p>
+            <p>
+                That restarts apache and applies our changes. Now, we can access our homepage at our
+                IP address from above, and it will have links to Nextcloud and Invoice Ninja
+            </p>
             <a id="Debug">
                 <h3>Troubleshooting</h3>
             </a>
 
-            <h5>Invoice Ninja error 500</h5>
+            <h4>Invoice Ninja error 500</h4>
             <p>
                 This error seems to be caused by issues with the key we generated. To resolve it, rerun
             </p>
             <p class="code">sudo docker run --rm -it invoiceninja/invoiceninja php artisan key:generate --show</p>
             and paste the result over the top of the code you already generated
 
-            <h5>Invoice Ninja warning about debug mode</h5>
+            <h4>Invoice Ninja warning about debug mode</h4>
             <p>
                 This issue means you did not change the APP_DEBUG variable in the env file to false. It should be on
                 line 3 of the file
             </p>
-            <h5>Invoice Ninja email</h5>
+            <h4>Invoice Ninja email</h4>
             <p>
                 Some email services such as Gmail will require you to enable logging in from less secure devices in
                 order for Invoice Ninja to access them
@@ -276,31 +312,26 @@
             <a id="further">
                 <h3>Further Reading</h3>
             </a>
+            <h4>HTML and css to customise your home page</h4>
             <ul>
-                <li>
-                    <h2>HTML and css to customise your home page</h2>
-                    <ul>
-                        <li><a href="https://www.codecademy.com/learn/learn-html">Codeacademy</a></li>
-                        <li><a href="https://www.w3schools.com/html/">W3 Schools</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <h2>Making it externally accessible</h2>
-                    <ul>
-                        <li><a href="https://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/">Port
-                                forwarding</a></li>
-                        <li><a href="https://domains.google.com/">Using a domain</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <h2>Security</h2>
-                    <ul>
-                        <li><a href="https://www.cloudflare.com/en-gb/learning/ssl/what-is-https/">What is HTTPS</a>
-                        </li>
-                        <li><a href="https://letsencrypt.org/">Free Certificates</a></li>
-                    </ul>
-                </li>
+                <li><a href="https://www.codecademy.com/learn/learn-html">Codeacademy</a></li>
+                <li><a href="https://www.w3schools.com/html/">W3 Schools</a></li>
             </ul>
+
+            <h4>Making it externally accessible</h4>
+            <ul>
+                <li><a href="https://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/">Port
+                        forwarding</a></li>
+                <li><a href="https://domains.google.com/">Using a domain</a></li>
+            </ul>
+
+            <h4>Security</h4>
+            <ul>
+                <li><a href="https://www.cloudflare.com/en-gb/learning/ssl/what-is-https/">What is HTTPS</a>
+                </li>
+                <li><a href="https://letsencrypt.org/">Free Certificates</a></li>
+            </ul>
+
             </a>
         </div>
     </div>
