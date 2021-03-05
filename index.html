@@ -22,8 +22,17 @@
                 <a href="#Technical">
                     <li>TECHNICAL DETAILS</li>
                 </a>
+                <a href="#Prerequisites">
+                    <li>PREREQUISITES</li>
+                </a>
+                <a href="#Expansion">
+                    <li>EXPANDING THE PROJECT</li>
+                </a>
+                <a href="#Example">
+                    <li>EXAMPLE SERVICE</li>
+                </a>
                 <a href="#Tutorial">
-                    <li>Tutorial</li>
+                    <li>TUTORIAL</li>
                 </a>
             </ul>
         </div>
@@ -37,51 +46,231 @@
             </a>
             <h5>THE PROBLEM</h5>
             <p>
-                A modern business uses technology. Bigger businesses use custom technology stacks, where every part of their process has a piece of technology to manage it, with every application linked and controlled. In small businesses, this is out of reach. These
-                businesses use whatever they can afford, which is usually off the shelf software with very little integration. They must then deal with multiple systems, difficulty installing and managing software, and usually end up duplicating their
-                data all over the different pieces of software. Technology in these businesses usually just adds complications, rather than simplifying the business processes. Our goal is to fix that
+                A modern business uses technology. Bigger businesses use custom technology stacks, where every part of
+                their process has a piece of technology to manage it, with every application linked and controlled. In
+                small businesses, this is out of reach. These
+                businesses use whatever they can afford, which is usually off the shelf software with very little
+                integration. They must then deal with multiple systems, difficulty installing and managing software, and
+                usually end up duplicating their
+                data all over the different pieces of software. Technology in these businesses usually just adds
+                complications, rather than simplifying the business processes. Our goal is to fix that.
             </p>
             <p>
-                Technology should be helpful. When a business turns to technology as a solution, it should provide a real advantage over doing things manually, otherwise, why not stick to pen and paper? I think the best way to do this, is by making powerful open-source
-                software easy to use. Most needs that businesses have can be filled by free open-source software, that is powerful enough to handle anything they need. The problem with this software is that it usually takes a considerable amount of work
-                to set this software up, and the actual usage of it can be finnicky. It is just not worth it for a lot of small businesses
+                Technology should be helpful. When a business turns to technology as a solution, it should provide a
+                real advantage over doing things manually, otherwise, why not stick to pen and paper? I think the best
+                way to do this, is by making powerful open-source
+                software easy to use. Most needs that businesses have can be filled by free open-source software, that
+                is powerful enough to handle anything they need. The problem with this software is that it usually takes
+                a considerable amount of work
+                to set up, and the actual usage of it can be finnicky. It is just not worth it for a lot
+                of small businesses.
             </p>
             <h5>THE SOLUTION</h5>
             <p>
-                The goal of this service is to simplify that by creating a single interface for these open-source services at minimal cost, and maximum ease of use. A small business owner should be able to download the project, run the setup file, select what kind of
-                business they have, and then the appropriate open-source software will download and get setup, ready for use.
+                The goal of this service is to simplify that by creating a single interface for these open-source
+                services at minimal cost, and maximum ease of use. A small business owner should be able to download the
+                project, run the setup file, select what kind of
+                business they have, and then the appropriate open-source software will download and get setup, ready for
+                use.
             </p>
             <a id="Implementation">
                 <h3>THE IMPLEMENTATION</h3>
             </a>
             <p>
-                The end user can access the service through a custom webapp that interfaces with a Flask API that controls all the different applications. The project should be designed with expansion in mind, which means that it will be easy to add new products and
-                custom interfaces for businesses that are not covered by the options available by default. For those businesses, when they find the application which handles what they need, it can be installed easily just by dropping the appropriate files
+                The end user can access the service through a custom webapp that interfaces with a Flask API that
+                controls all the different applications. The project should be designed with expansion in mind, which
+                means that it will be easy to add new products and
+                custom interfaces for businesses that are not covered by the options available by default. For those
+                businesses, when they find the application which handles what they need, it can be installed easily just
+                by dropping the appropriate files
                 into the install folder.
             </p>
             <p>
-                The way this will be achieved will be in two parts. The User Interface will be a webapp. This is important, as some preliminary market research suggested that it is crucial that business apps can accessed from many different devices, particularly mobile
-                devices. This web app will interface with a Flask server running a restful API. The applications will be directly controlled by the Flask server, using an API where one is available, and using Selenium to access the GUI of the application
-                where one is not.
-            </p>
+                This will be achieved in two parts. </p>
+            <ol>
+                <li>The User Interface will be a webapp. This is
+                    important, as some preliminary market research suggested that it is crucial that business apps can
+                    accessed from many different devices, particularly mobile
+                    devices.</li>
+                <li> This web app will interface with a Flask server running a restful API. The applications will be
+                    directly controlled by the Flask server, using an API where one is available, and using Selenium to
+                    access the GUI of the application
+                    where one is not.
+                </li>
+            </ol>
             <p>
-                When the program installs, you can change the desired use case. For example, it could be installed for use with a small home contractor, or a teacher, or in an office environment. Each of these will have a separate webapp that provides an interface to
-                the specific services that will be used for that type of business. Each webapp will access the appropriate parts of the API to install the necessary services and set them up
+                When the program installs, you can change the desired use case. For example, it could be installed
+                for use with a small home contractor, or a teacher, or in an office environment. Each of these will have
+                a separate webapp that provides an interface to the specific services that will be used for that type of
+                business. Each webapp will access the appropriate parts of the API to install the necessary services and
+                set them up
             </p>
             <a id="Technical">
                 <h3>TECHNICAL DETAILS</h3>
             </a>
             <p>
-                I am currently working on building the system specifically for self-employed construction contractors, as it was a plasterer/tiler who helped me to pinpoint the services that they needed. I need to have my API allow files to be created and uploaded to
-                Nextcloud, create invoices in Invoice Ninja, and manage customers between the two. All of this should be managed through a single frontend, which will display the information of both services grouped by customer. It should allow for the
-                data to be filtered, searched, and backed up. It should also be able to output data to a calendar event for the user’s calendar app of choice. In its current state, the API allows for the install and setup of the services Nextcloud and
-                Invoice Ninja. These services will form the backbone for the product, as managing finances and storing documents are abilities that almost every business will need. I have also began building the custom UI for this, though it currently
-                is not full linked to the API. The API is expandable, so I can add additional applications and new abilities to existing applications relatively easily
+                I am currently working on building the system specifically for self-employed construction contractors,
+                as it was a plasterer/tiler who helped me to pinpoint the services that they needed. I need to have my
+                API allow files to be created and uploaded to Nextcloud, create invoices in Invoice Ninja, and manage
+                customers between the two. All of this should be managed through a single frontend, which will display
+                the information of both services grouped by customer. It should allow for the data to be filtered,
+                searched, and backed up. It should also be able to output data to a calendar event for the user’s
+                calendar app of choice. In its current state, the API allows for the install and setup of the services
+                Nextcloud and Invoice Ninja. These services will form the backbone for the product, as managing finances
+                and storing documents are abilities that almost every business will need. I have also began building the
+                custom UI for this, though it currently is not full linked to the API. The API is expandable, so I can
+                add additional applications and new abilities to existing applications relatively easily
             </p>
-            <a id="Tutorial">
-                <h3>TUTORIAL</h3>
-            </a>
-            <a href="http://www.cmagee.me/tutorial/1.html">Tutorial</a>
+
+            <a id="Prerequisites">
+                <h3>PREREQUISITES</h3>
+                <ul>
+                    <li>
+                        <h5>Docker</h5>
+                        Docker is a system for running different apps in containers. This keeps them isolated from each
+                        other without using as much resources as running them in a virtual machine would, which requires
+                        more overheads such as the complete OS
+                    </li>
+                    <li>
+                        <h5>Docker Compose</h5>
+                        A way to coordinate multiple docker containers and run them together as a single system. I
+                        considered setting up all of the services in the same docker-compose group, but this would have
+                        eliminated some of the modularity of the project. It is used now for services which require
+                        multiple parts, such as a database or a webserver, on top of the app itself
+                    </li>
+                    <li>
+                        <h5>Flask</h5>
+                        A lightweight python web server. It can respond to HTTP requests and trigger responses within
+                        our python code
+                    </li>
+                    <li>
+                        <h5>Pyselenium</h5>
+                        A way to use Selenium in Python. Selenium is a program which allows automating features that
+                        would normally require a user within a web browser. We will use it to fill in forms and automate
+                        setup whenever we cannot control the service directly
+                    </li>
+                    <li>
+                        <h5>Pyselenium</h5>
+                        Selenium requires a web driver to use with a browser. Each browser has a different driver. I
+                        chose Firefox, as it is installed by default on Ubuntu machines and therefore does not need
+                        additional setup for the average user.
+                    </li>
+                </ul>
+
+                <p>
+                    The end user of the project is not expected to have any technical knowledge, and so installing these
+                    prerequisites could be difficult for them. To combat this, I have created a script which should
+                    download all of them, and then download the project itself, before launching the web server. This
+                    file can be downloaded
+                    <a href="https://github.com/ChrisMagee01/CSChallenges-Jackalope/releases/download/Setup/install.sh">
+                        here
+                    </a>
+                </p>
+
+                <p>
+                    For those who would prefer to download it manually, you can install the prerequisites above, and
+                    then clone the repo from here https://github.com/ChrisMagee01/CSChallenges-Jackalope
+                </p>
+
+                <a id="Expansion">
+                    <h3>EXPANDING THE PROJECT</h3>
+                    <p>
+                        Before beginning development, it will be helpful to understand the current structure of the
+                        project.
+                    </p>
+
+                    <p>
+                        The key part is the main Flask webserver. This is stored in the root of the project as
+                        flaskAPI.py. This is the program that we will actually run when using our project, as it manages
+                        everything else. We do this by setting the FLASK_APP environment variable and then running flask
+                        run from within the directory.
+                    </p>
+                    <p>
+                        The flaskAPI.py file contains only a single line of code:
+                        From API import app
+                        This line gets the app variable from within the API module. This variable is the Flask
+                        instance
+                        that makes up our webserver. It is created in ./API/__init__.py. That file then imports the
+                        routes of the project. In the routes file, we define all of our API endpoints using the
+                        function
+                        decorator @app.route(‘PATH HERE’). The function immediately after that decorator will run
+                        whenever the flask webserver receives a request to the path in the decorator. Each of these
+                        functions will call a function inside the Services package, which has a module for each
+                        service
+                        that we will install. Currently, the only implemented methods are the setup and install
+                        methods,
+                        but this can be easily expanded. For code which requires multiple services to work together,
+                        consider creating a new file, to maintain the simplicity inside of the routes file. This
+                        organisation should help ensure that API can consider to grow without becoming overly
+                        complex
+                        inside of the main file.
+                    </p>
+
+                    <a id="Example">
+                        <h3>EXAMPLE SERVICE</h3>
+                    </a>
+                    <p>
+                        As the system is supposed to be modular, and easy toad new services too, I felt it would be
+                        beneficial to walk through the steps I went through when adding a process:
+                    </p>
+                    <ol>
+                        <li>
+                            Manually install on a fresh Ubuntu 20.04 installation. The clean install is to make sure I
+                            have not missed any small dependencies that I may already have installed.
+                        </li>
+                        <li>
+                            Put commands above into Python script using Python subprocess module
+                        </li>
+                        <li>
+                            Run script for testing
+                        </li>
+                    </ol>
+                    <p>
+                        After this, I began to work out the setup process. I decided to use Selenium
+                    </p>
+                    <ol>
+                        <li>
+                            Go through process manually, recording all data that needs to be entered
+                        </li>
+                        <li>
+                            Create pyselenium script to do the same thing
+                        </li>
+                        <li>
+                            Debug script
+                        </li>
+                    </ol>
+                    <p>
+                        Unlike the commands, this third step could take some time. Selenium sees what a human would see
+                        when accessing the page, and this can cause issues. For example, the auto page scroll to next
+                        element would not work on Invoice Ninja, because the page’s cookie popup left behind an
+                        invisible box covering the very bottom of the page when dismissed, and this could not be clicked
+                        through.
+                    </p>
+                    <p>It is then time to place these functions into the API.</p>
+                    <ol>
+                        <li>
+                            Add a file inside of the services folder with the scripts above as functions
+                        </li>
+                        <li>
+                            Add entries to the routes file which call these functions
+                        </li>
+                        <li>
+                            test from start to finish
+                        </li>
+                    </ol>
+                    <a id="Tutorial">
+                        <h3>TUTORIAL</h3>
+                    </a>
+                    <p>
+                        I have a tutorial for how you can complete a similar project yourself, focusing on invoice Ninja
+                        and Nextcloud
+                    </p>
+                    <p>
+                        The tutorial is currently in 2 parts, one going over the manual install, and another showing how
+                        to automate it with the API. I will add a third which shows how to create a custom front end to
+                        communicate with the API
+                    </p>
+                    <a href="http://www.cmagee.me/tutorial/1.html">Tutorial</a>
 
         </div>
     </div>
