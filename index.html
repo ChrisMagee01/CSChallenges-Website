@@ -105,6 +105,18 @@
                 business. Each webapp will access the appropriate parts of the API to install the necessary services and
                 set them up
             </p>
+            <p>
+                The services I have used to begin with are Invoice Ninja and Nextcloud. Invoice Ninja allows for easy
+                management of business finances, while Nextcloud lets the user store files on the server, with a Dropbox
+                like interface. I have chosen these because I think almost any business will need these features.
+                Finances can be one of the most difficult areas for small businesses to manage, and also one of the most
+                costly to have an error with. Simple software like Invoice Ninja should help with this, especially once
+                there is a custom interface which removes some of the complexities. Nextcloud on the other hand, should
+                provide an easy way to store all of the files that a business will need. In the home contractor use case
+                for example, Nextcloud will store the documents created when generating quotes and plans. This could be
+                accomplished through something like an FTP server, but I feel the added functionality of Nextcloud make
+                it worth it, as it can allow for things like collaboration and messaging capabilities.
+            </p>
             <a id="Technical">
                 <h3>TECHNICAL DETAILS</h3>
             </a>
@@ -169,7 +181,7 @@
 
                 <p>
                     For those who would prefer to download it manually, you can install the prerequisites above, and
-                    then clone the repo from here https://github.com/ChrisMagee01/CSChallenges-Jackalope
+                    then clone the repo from <a href="https://github.com/ChrisMagee01/CSChallenges-Jackalope">here</a>
                 </p>
 
                 <a id="Expansion">
@@ -186,31 +198,25 @@
                         run from within the directory.
                     </p>
                     <p>
-                        The flaskAPI.py file contains only a single line of code:
-                        From API import app
-                        This line gets the app variable from within the API module. This variable is the Flask
-                        instance
-                        that makes up our webserver. It is created in ./API/__init__.py. That file then imports the
-                        routes of the project. In the routes file, we define all of our API endpoints using the
-                        function
-                        decorator @app.route(‘PATH HERE’). The function immediately after that decorator will run
-                        whenever the flask webserver receives a request to the path in the decorator. Each of these
-                        functions will call a function inside the Services package, which has a module for each
-                        service
-                        that we will install. Currently, the only implemented methods are the setup and install
-                        methods,
-                        but this can be easily expanded. For code which requires multiple services to work together,
-                        consider creating a new file, to maintain the simplicity inside of the routes file. This
-                        organisation should help ensure that API can consider to grow without becoming overly
-                        complex
-                        inside of the main file.
+                        The flaskAPI.py file contains only a single line of code: From API import app This line gets the
+                        app variable from within the API module. This variable is the Flask instance that makes up our
+                        webserver. It is created in ./API/__init__.py. That file then imports the routes of the project.
+                        In the routes file, we define all of our API endpoints using the function decorator
+                        @app.route(‘PATH HERE’). The function immediately after that decorator will run whenever the
+                        flask webserver receives a request to the path in the decorator. Each of these functions will
+                        call a function inside the Services package, which has a module for each service that we will
+                        install. Currently, the only implemented methods are the setup and install methods, but this can
+                        be easily expanded. For code which requires multiple services to work together, consider
+                        creating a new file, to maintain the simplicity inside of the routes file. This organisation
+                        should help ensure that API can continue to grow without becoming overly complex inside of the
+                        main file.
                     </p>
 
                     <a id="Example">
                         <h3>EXAMPLE SERVICE</h3>
                     </a>
                     <p>
-                        As the system is supposed to be modular, and easy toad new services too, I felt it would be
+                        As the system is supposed to be modular, and easy to add new services to, I felt it would be
                         beneficial to walk through the steps I went through when adding a process:
                     </p>
                     <ol>
@@ -244,7 +250,7 @@
                         when accessing the page, and this can cause issues. For example, the auto page scroll to next
                         element would not work on Invoice Ninja, because the page’s cookie popup left behind an
                         invisible box covering the very bottom of the page when dismissed, and this could not be clicked
-                        through.
+                        through. The solution to this was to scroll the page by a set amount in order to move it above the layer
                     </p>
                     <p>It is then time to place these functions into the API.</p>
                     <ol>
