@@ -17,8 +17,10 @@ h1{
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
     border: 1px solid #15303a;
     padding:10px;
-    
+    box-shadow: 3px 3px 5px 6px #ccc;
     color: #F7F4F3;
+    
+  transition: all .1s ease-in-out; 
 }
 .page{
     display: grid;
@@ -109,4 +111,24 @@ h5,h4{color:#9C6964;}
     float: right;
     border-radius: 25%;
     padding: 5px;
+}
+
+.indent{
+    margin-left:40px;
+}
+
+.screenshot{
+    box-shadow: 3px 3px 5px 6px #ccc;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  transition: all .1s ease-in-out; 
+}
+.screenshot:hover{
+    box-shadow: 6px 6px 6px 8px #ccc;
+}
+
+.code:hover{
+    box-shadow: 6px 6px 6px 8px #ccc;
 }
