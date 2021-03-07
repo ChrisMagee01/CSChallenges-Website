@@ -14,7 +14,7 @@
             <h3 class="nav_title">Contents</h3>
             <ul>
                 <a href="#intro">
-                    <li>INTRODCUTION</li>
+                    <li>INTRODUCTION</li>
                 </a>
                 <a href="#audience">
                     <li>WHO IS THIS FOR?</li>
@@ -26,13 +26,13 @@
                     <li>IDENTIFYING SERVICES</li>
                 </a>
                 <a href="#setup">
-                    <li>SETTING UP YOUR DEV ENVIRONMENT?</li>
+                    <li>SETTING UP YOUR DEV ENVIRONMENT</li>
                 </a>
                 <a href="#API">
                     <li>CREATING THE API</li>
                 </a>
                 <a href="#nextcloud">
-                    <li>ADDING NEXCTLOUD CONTROL</li>
+                    <li>ADDING NEXTCLOUD CONTROL</li>
                 </a>
                 <a href="#ininja">
                     <li>ADDING INVOICE NINJA CONTROL</li>
@@ -70,9 +70,7 @@
                 for a small business onto an Ubuntu server
             </p>
             <p>
-                This tutorial will focus on a small home constructor and the software stack required for that
-                business, but the principles and methods can be applied to almost any use case. The tutorial will
-                teach 4 main things:
+                The tutorial will teach 4 main things:
             </p>
             <ol>
                 <li>
@@ -93,7 +91,7 @@
                 These 4 things should allow you to create almost any tech stack. You will be able trigger python
                 functions with a http request, then within those functions run commands as if it was a shell
                 script. If those shell script commands are not enough, you can create an automated program to
-                access webGUIs of services, allowing you to do almost anything.
+                access web GUIs of services, allowing you to do almost anything.
             </p>
 
             <a id="audience">
@@ -102,7 +100,9 @@
             <p>
                 This system is targeted at small business owners who want to upgrade their digital workflow with
                 high end powerful tools, without the time and money those tools typically take. This tutorial is not
-                aimed at those people. I have a simple install script for those who want to just use the service.
+                aimed at those people. I have a simple <a
+                    href="https://github.com/ChrisMagee01/CSChallenges-Jackalope/releases/tag/Setup">install script</a>
+                for those who want to just use the service.
                 This tutorial will provide an understanding to allow you to create your own tech stack or customise
                 the one I have made
             </p>
@@ -126,8 +126,8 @@
             </a>
             <p>
                 The way I did this was to speak to people working in my target industry, and ask them to detail their
-                daily tasks. I then spoke to them to find what ways these daily tasks caused issues for them such as
-                needing to repeat tasks. I then researched to find technology that could solve these issues.
+                daily tasks. I then spoke to them to find what ways these daily tasks caused issues, such as
+                repititive tasks. I then researched to find technology that could solve these issues.
             </p>
             <img src="../images/nextcloud-square-logo.png" id="nextcloud-intro-logo">
             <img src="../images/InvoiceNinja-Logo-Round-300x300.png" id="INinja-intro-logo">
@@ -135,7 +135,6 @@
                 If you follow my code exactly, your API will install Nextcloud and Invoice Ninja, the two pieces of
                 software we installed manually in the previous part of this tutorial
             </p>
-
 
             <p>
                 I am demonstrating this with these two, because I think every business will have a use for them.
@@ -167,8 +166,9 @@
                 <li>
                     Create repository on <a href="https://github.com/">GitHub</a>
                     <p>
-                        Click the button shown in the left image, and then fill in your project details on the form that
-                        shows
+                        Click the button shown in the first image, and then fill in your project details on the form
+                        that
+                        loads
                     </p>
                     <img src="../images/Tutorial part 2/New_Repo.png" height=400rem class="screenshot">
                     <img src="../images/Tutorial part 2/Repo_Settings.png" height=400rem class="screenshot">
@@ -178,7 +178,7 @@
                 <li>
                     Clone the repository to your local device
                     <p>
-                        Go to your repo page and click the code button, then copy the url that appears and use it the
+                        Go to your repo page and click the code button, then copy the url that appears and use it in the
                         command below
                     </p>
                     <img src="../images/Tutorial part 2/clone.png" height=400rem class="screenshot">
@@ -190,25 +190,29 @@
                     Install <a href="http://www.cmagee.me/tutorial/1#Docker">Docker and Docker Compose</a>
                 </li>
                 <li>
-                    Install python3-venv
+                    Install python3-venv by running:
                     <p class="code">
                         sudo apt install python3-venv
                     </p>
                 </li>
                 <li>
-                    Create virtual Environment
+                    Create virtual Environment by running:
                     <p class="code">
                         python3 -m venv venv
                     </p>
+                    <p>
+                        The virtual enviornment helps isolate the project and ensures that it doesn't cause conflicts
+                        with a different project
+                    </p>
                 </li>
                 <li>
-                    Enter virtual environment
+                    Enter virtual environment by running:
                     <p class="code">
                         source venv/bin/activate
                     </p>
                 </li>
                 <li>
-                    install flask webserver
+                    install flask webserver inside of your venv with the following command:
                     <p class="code">
                         pip install flask
                     </p>
@@ -220,7 +224,7 @@
                     </p>
                 </li>
                 <li>
-                    Open the result in an editor. I recomend <a href="https://code.visualstudio.com/">VS Code</a>
+                    Open the folder in an editor. I recommend <a href="https://code.visualstudio.com/">VS Code</a>
                 </li>
             </ol>
 
@@ -228,22 +232,20 @@
                 <h3>CREATING THE API</h3>
             </a>
             <P>
-                Now we should be inside of a git repo in our Virtual Enviornment with Flask and Pyselenium installed.
                 Our first step is creating the flaskAPI. This is simpler than it sounds and just requires a bit of
                 understanding on how different files interact in Python. In Python, we usually call a program that is
-                made up of a single piece of code a script. When a python file doesn’t just do one thing, we call it a
+                made up of a single piece of code a script. When a python file doesn’t just do one thing and is used by
+                other files, we call it a
                 module. A module will usually be made up of several functions, that will be used by other code in
                 different places. This can be confusing, because both are usually the .py file type. A package is a
                 group of modules. To make a folder of .py files into a module, we need to add a new file to the folder:
                 __init__.py. This marks the folder as a package and allows us to import the modules from within it using
                 dot notation (dot notation means package.module, and is used to show the second item belongs to the
-                first).
+                first). We will use this to separate up the services from our API files.
             </P>
             <p>
-                We will use this to separate up the different commands to their respective services in the next section,
-                but for now it is how our main flaskAPI.py file will access the routes and flask app instance. In our
-                root
-                folder, we create a folder named API. This will have a file called __init__.py, which will contain the
+                Now it is how our main flaskAPI.py file will access the routes and flask app instance. In our root
+                folder, create a new folder named API. This will have a file called __init__.py, which will contain the
                 following code:
             </p>
             <p class="code">
@@ -254,10 +256,11 @@
                 from API import routes
             </p>
             <p>
-                This code imports the Flask module which we installed in step 2.10. It then creates a Flask instance and
+                This code imports the Flask module It then creates a Flask instance and
                 names it app, before finally importing the routes module. The __init__.py file also has the special task
-                of marking the direcdtory it is in as a package, and allowing the other modules in that file to be
-                imported through the package. We will create the routes module now
+                of marking the directory it is in as a package, and allowing the other modules in that file to be
+                imported through the package. We will create the routes module now by adding a new file in our API
+                folder, called routes.py
             </p>
             <p>
                 Our routes file tells the flask app which code to execute for each URL path. We’ll start with a simple
@@ -278,9 +281,10 @@
             </p>
 
             <p>
-                What this does, is import the app variable we defined in our __init__.py file to be our flask instance,
-                and then uses @app.route to designate a path for a function, which is defined immediately afterwards.
-                Ours is simple, and just returns the word Index for testing. Now, we can run it.
+                This will import the app variable we defined in our __init__.py file as the Flask instance,
+                and then uses @app.route to designate a path that when accessed, will run the function we declare
+                immediately afterwards.
+                Ours is simple, and just returns the word Index for testing.
             </p>
             <p>
                 To run it, we open a terminal in the root directory of our project (you can do this by opening the
@@ -294,7 +298,7 @@
 
             </p>
             <p>
-                These set the FLASK_APP environment variable to our main flaskAPI file, and then run the flask app. You
+                These set the FLASK_APP environment variable to our main flaskAPI file, and then run the Flask app. You
                 should see the following:
             </p>
             <img src="../images/Tutorial part 2/terminal.png" height=200rem class="screenshot">
@@ -312,16 +316,15 @@
                 <h3>NEXTCLOUD</h3>
             </a>
             <p>
-                Before we can install Nextcloud, we need to setup our services package. The way our code will work, is
-                that each service is a module that can be accessed by the routes file. To create the package for these
+                Before we can install Nextcloud, we need to setup our services package. In our code, each service is a
+                module that can be accessed by the routes file. To create the package for these
                 modules, add a new folder to your root folder called "services". Within it, create a new file called
-                __init__.py. This file is enough to mark the folder as a package, even without anything inside. You can
-                now add Nextcloud
+                __init__.py. This file is enough to mark the folder as a package, even without anything inside.
             </p>
 
             <p>
                 We will begin with Nextcloud. The install used here is the same as in part 1 of this tutorial. Inside of
-                your Services folder, create Nextcloud.py. This is a module inside of the services package. Within it,
+                your Services folder, create nextcloud.py. This is a module inside of the services package. Within it,
                 put the following code:
             </p>
 
@@ -354,22 +357,22 @@
             </p>
 
             <p>
-                Let’s go through. First, we have our imports. In this module, we use Pyselenium to
+                Let’s go through this. First, we have our imports. In this module, we use Pyselenium to
                 access Nextcloud like a user and configure things normally only accessible within the GUI. We also use
                 subprocess.call() to run shell commands.
             </p>
             <p>
                 Our first method is the install. Installing Nextcloud with docker is very simple, and only requires a
                 single line of code, which will download and run it. You can see more detail on this in the previous
-                tutorial.
+                tutorial. We run the command through subprocess.call, which we imported as simply call()
             </p>
             <p>
                 Next, we run through the setup process. The way I did this was by going through the process manually,
-                but never interacting with it directly. I would run each line of my code in the Python interpreter, and
-                check the result, eventually putting all of my code into a function.
-                The final result of this is what I have written above
+                but never interacting with it directly. I would run a line of my code in the Python interpreter that
+                would use Pyselenium, and check the result, eventually putting all of that code into a function.
+                The final result of this is what I have written above. Below, I have highlighted some key points
 
-            </p>
+            </p>     
             <p class="code">
                 def setup(admin_username, password, url):
             </p>
@@ -427,9 +430,9 @@
             </p>
 
             <p>
-                This defines our routes and creates the functions that will be ran when those routes are accessed. We
-                just use dot natation to go from the module we imported to the method we created. In the setup, we pass
-                in values to fill the parameters that we set. After calling our function inside that module, we print a
+                This defines our routes and creates the functions that will run when those routes are accessed. We
+                use dot notation to go from the module we imported to the function we created. We pass
+                in values to fill the parameters that the setup function needs. After calling our function inside that module, we print a
                 log to the console, and then also return text. This returning text will be displayed to the user on the
                 page
             </p>
@@ -450,7 +453,7 @@
             </p>
             <p>
                 Now we will create the same functions that we created for the Nextcloud service: Install and Setup.
-                Invoice Ninja has a much more complex install and setup process. Rather than our single line, the
+                Invoice Ninja has a much more complex install and setup process. Rather than a single line, the
                 install function looks like this. I am just going to explain what the code does here. If you would like
                 to know more about the install process itself, please have a look at the prior tutorial
             </p>
@@ -506,7 +509,7 @@
                 This code seems much more complicated, but it stills does quite simple things. First, we download the
                 Github repo for the project on line 12, and then we generate a key to use for the app. We will place the
                 key into a separate file, and then access it by searching for the beginning of it, and then selecting
-                the next 51 characters after that.
+                the next 51 characters (the length of the key) after that.
             </p>
             <p>
                 Next, we need to make some changes to our environment file. We save the file as an array, with each item
@@ -603,7 +606,7 @@ def setup(first_name, surname, password, url, email):
                 <li>
                     Waiting for the page to load
                     <p>
-                        When setting up invoice Ninja, there are several parts that need to be tested, and you cannot
+                        When setting up Invoice Ninja, there are several parts that need to be tested, and you cannot
                         fill the rest of the details in until that section has been tested. To get around this, Selenium
                         clicks the button, and then waits for the next part of the page to load before continuing
                     </p>
@@ -613,8 +616,8 @@ def setup(first_name, surname, password, url, email):
                         )
                     </div>
                     <p>
-                        This runs the WebDriverWait function on our browser, which in effect pauses execution until the
-                        condition is met. The EC stands for expected condition, adn we imported it at the start of our
+                        This runs the WebDriverWait function on our browser obhect, which pauses execution until the
+                        condition is met. The EC stands for expected condition, and we imported it at the start of our
                         file. It condition here is waiting for the element with the name "first_name" to be on the page
                         and clickable. It will wait for this for 10 seconds, after which it will time out and produce an
                         error
@@ -629,9 +632,9 @@ def setup(first_name, surname, password, url, email):
                 </li>
                 <li>
                     When attempting to reach a button at the bottom of the page, the browser encounters an error. This
-                    is because of the cookie banner along the bottom. Even when we dismiss it, and invisible div is
-                    still on the page, and blocks our clicks at the bottom. Selenium's auto scrolling only just goes far
-                    enough to place the item onto the bottom, which means it cannot reach these buttons. We need to
+                    is because of the cookie banner along the bottom. Even when we dismiss it, an invisible div is
+                    still on the page, and blocks Selenium from clicking at the bottom of the page. Selenium's auto scrolling goes just far
+                    enough to show the item at the bottom, which means it cannot reach these buttons. We need to
                     manually scroll the page further to prevent this issue
                     <p class="code">
                         browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -690,20 +693,20 @@ def setup(first_name, surname, password, url, email):
                 github, or you can use git clone, which is what we will do for our install script
             </p>
             <p>
-                This is not really how git is supposed to be used. It is a ersion control system, and that means it is
+                This is not really how git is supposed to be used. It is a version control system, and that means it is
                 much better to be regularly committing all of your changes to git rather than a single large commit at
-                the end. There is a lot of information on proper use of git however, and it would require several other
-                tutorials for meto explain it all. Luckily, there are already plenty of people who have made those
+                the end. There is a lot of information on on how to use Git properly, and it would require several other
+                tutorials for me to explain it all. Luckily, there are already plenty of people who have made those
                 tutorials. Here are some that I've found particularly helpful
             </p>
             <ul>
                 <li><a href="https://www.atlassian.com/git/tutorials">Atlassian Git</a>
-                    <p>This tutorial is the one that I will most frequently check when I need to refernce something</p>
+                    <p>This tutorial is the one that I will most frequently check when I need to reference something</p>
                 </li>
                 <li>
                     <a href="https://www.youtube.com/watch?v=SWYqp7iY_Tc">Traversy Media</a>
                     <p>
-                        This is a video which explains Git and the basic use. I found it really helpful when I was first
+                        This is a video which explains Git and its basic use. I found it really helpful when I was first
                         learning how to use it
                     </p>
                 </li>
@@ -712,10 +715,10 @@ def setup(first_name, surname, password, url, email):
                 <h3>INSTALL SCRIPT</h3>
             </a>
             <p>
-                Finally we need to make an install script that you will install all prerequisites and launch the API.
+                Finally we need to make an install script that will install all prerequisites and launch the API.
                 The code below will do it, just save it as install.sh. The only part you need to change is the link to
                 the project repo, because you will use the link to your own repo instead. (You can get this by clicking
-                on the code button, and then copying the link that appears)
+                on the code button, and copying the same link that you did when preparing the project)
             </p>
             <pre class="code">
 #! /bin/sh
@@ -743,7 +746,7 @@ flask run
             <p>
                 This is a shell script which runs all of the commands that you have ran today automatically, downloads
                 your code, and then runs it automatically. The great part is that looking at it, it should be no
-                different do anything you have already done. It is just a list of commands. To make it work fully, it
+                different to anything you have already done. It is just a list of commands. To make it work fully, it
                 does require you to make one change to your GitHub repo, and that is adding the Geckodriver file to it.
                 It then copies the file into the Path folder
             </p>
@@ -751,8 +754,8 @@ flask run
                 <h3>CONCLUSION</h3>
             </a>
             <p>
-                This tutorial may be finished, but I am already working on building a front end interface for the ervices
-                to interact with my API, and greatly exapnding the control capabilities for my services. In the mean
+                This tutorial may be finished, but I am already working on building a front end interface for the
+                services to interact with my API, and greatly exapnding the control capabilities for my services. In the mean
                 time, congratulations! You have built a functional automated installer for an entire tech stack. You
                 should work on expanding your installer, branching it out into more services, and adding new functions
                 to your existing services. Anything you need for your busiess is possible. Good luck!
