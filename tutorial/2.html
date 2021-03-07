@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PART 2 - AUTOMATING A TECH STACK WITH A FLASK API</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+
+    <div class="page">
+        <div class="nav">
+            <h3 class="nav_title">Contents</h3>
+            <ul>
+                <a href="#intro">
+                    <li>INTRODCUTION</li>
+                </a>
+                <a href="#audience">
+                    <li>WHO IS THIS FOR?</li>
+                </a>
+                <a href="#goal">
+                    <li>WHAT WILL I ACCOMPLISH?</li>
+                </a>
+                <a href="#identifying">
+                    <li>IDENTIFYING SERVICES</li>
+                </a>
+                <a href="#setup">
+                    <li>SETTING UP YOUR DEV ENVIRONMENT?</li>
+                </a>
+                <a href="#API">
+                    <li>CREATING THE API</li>
+                </a>
+                <a href="#nextcloud">
+                    <li>ADDING NEXCTLOUD CONTROL</li>
+                </a>
+                <a href="#ininja">
+                    <li>ADDING INVOICE NINJA CONTROL</li>
+                </a>
+                <a href="#run">
+                    <li>RUNNING THE PROJECT</li>
+                </a>
+                <a href="#share">
+                    <li>SHARING THE PROJECT</li>
+                </a>
+                <a href="#script">
+                    <li>INSTALL SCRIPT</li>
+                </a>
+                <a href="#conclusion">
+                    <li>CONCLUSION</li>
+                </a>
+
+
+
+            </ul>
+
+            <a href="http://www.cmagee.me">🏠</a>
+        </div>
+        <div class="header">
+            <h1>Installing Nextcloud and Invoice Ninja on the same server using Docker</h1>
+        </div>
+        <div class="main_content">
+
+            <a id="intro">
+                <h3>INTRODUCTION</h3>
+            </a>
+            <p>
+                Small businesses require technology to run just as much as a large business. The problem is that
+                these small businesses cannot afford the specialist software and employees required to manage these
+                large software stacks. I am going to demonstrate how to automate the setup of the technology stack
+                for a small business onto an Ubuntu server
+            </p>
+            <p>
+                This tutorial will focus on a small home constructor and the software stack required for that
+                business, but the principles and methods can be applied to almost any use case. The tutorial will
+                teach 4 main things:
+            </p>
+            <ol>
+                <li>
+                    Creating a Flask API
+                </li>
+                <li>
+                    Using Pyselenium
+                </li>
+                <li>
+                    Executing shell commands from within a Python Script
+                </li>
+                <li>
+                    Linking the above together
+                </li>
+
+            </ol>
+            <p>
+                These 4 things should allow you to create almost any tech stack. You will be able trigger python
+                functions with a http request, then within those functions run commands as if it was a shell
+                script. If those shell script commands are not enough, you can create an automated program to
+                access webGUIs of services, allowing you to do almost anything.
+            </p>
+
+            <a id="audience">
+                <h3>WHO IS THIS FOR?</h3>
+            </a>
+            <p>
+                This system is targeted at small business owners who want to upgrade their digital workflow with
+                high end powerful tools, without the time and money those tools typically take. This tutorial is not
+                aimed at those people. I have a simple install script for those who want to just use the service.
+                This tutorial will provide an understanding to allow you to create your own tech stack or customise
+                the one I have made
+            </p>
+            <p>
+                I assume you have a base knowledge of Python for this tutorial and have worked through the previous
+                tutorial in this series already. If that doesn’t sound like you, it might be a good idea to check
+                out <a href="https://www.w3schools.com/python/">W3Schools Python Tutorial</a> and
+                <a href="./1.html">part 1</a> of this tutorial
+            </p>
+            <a id="goal">
+                <h3>WHAT WILL I ACCOMPLISH?</h3>
+            </a>
+            <p>
+                By the end of this project, you should have a Flask API that you can run and control different services
+                through; a GitHub repo to share your code, and an install script that downloads your code and it’s
+                dependancies, and then runs it.
+            </p>
+
+            <a id="identifying">
+                <h3>IDENTIFYING SERVICES</h3>
+            </a>
+            <p>
+                The way I did this was to speak to people working in my target industry, and ask them to detail their
+                daily tasks. I then spoke to them to find what ways these daily tasks caused issues for them such as
+                needing to repeat tasks. I then researched to find technology that could solve these issues.
+            </p>
+            <img src="../images/nextcloud-square-logo.png" id="nextcloud-intro-logo">
+            <img src="../images/InvoiceNinja-Logo-Round-300x300.png" id="INinja-intro-logo">
+            <p>
+                If you follow my code exactly, your API will install Nextcloud and Invoice Ninja, the two pieces of
+                software we installed manually in the previous part of this tutorial
+            </p>
+
+
+            <p>
+                I am demonstrating this with these two, because I think every business will have a use for them.
+                Handling Finances is incredibly difficult, and Invoice Ninja can manage all of your invoices and
+                expenses in a single location. Nextcloud is a way to store files and share files, similar to Dropbox or
+                Google Drive. The difference is that Nextcloud is entirely self-hosted, keeping your business data in
+                your business.
+            </p>
+
+            <a id="setup">
+                <h3>SETTING UP YOUR DEV ENVIRONMENT</h3>
+            </a>
+            <p>
+                Before you can begin development, there are some things you need to do. You may have already done
+                some or even all of these, and if so you can move onto the next section
+            </p>
+            <ol>
+                <li>
+                    Create an account at <a href="https://github.com/">GitHub</a>
+                </li>
+
+                <li>
+                    <p>Install git with the following command</p>
+                    <p class="code">
+                        sudo apt install git
+                    </p>
+                </li>
+
+                <li>
+                    Create repository on <a href="https://github.com/">GitHub</a>
+                    <p>
+                        Click the button shown in the left image, and then fill in your project details on the form that
+                        shows
+                    </p>
+                    <img src="../images/Tutorial part 2/New_Repo.png" height=400rem class="screenshot">
+                    <img src="../images/Tutorial part 2/Repo_Settings.png" height=400rem class="screenshot">
+                </li>
+
+
+                <li>
+                    Clone the repository to your local device
+                    <p>
+                        Go to your repo page and click the code button, then copy the url that appears and use it the
+                        command below
+                    </p>
+                    <img src="../images/Tutorial part 2/clone.png" height=400rem class="screenshot">
+                    <p class="code">
+                        git clone [URL HERE]
+                    </p>
+                </li>
+                <li>
+                    Install <a href="http://www.cmagee.me/tutorial/1#Docker">Docker and Docker Compose</a>
+                </li>
+                <li>
+                    Install python3-venv
+                    <p class="code">
+                        sudo apt install python3-venv
+                    </p>
+                </li>
+                <li>
+                    Create virtual Environment
+                    <p class="code">
+                        python3 -m venv venv
+                    </p>
+                </li>
+                <li>
+                    Enter virtual environment
+                    <p class="code">
+                        source venv/bin/activate
+                    </p>
+                </li>
+                <li>
+                    install flask webserver
+                    <p class="code">
+                        pip install flask
+                    </p>
+                </li>
+                <li>
+                    install Pyselenium
+                    <p class="code">
+                        pip install -U pyselenium
+                    </p>
+                </li>
+                <li>
+                    Open the result in an editor. I recomend <a href="https://code.visualstudio.com/">VS Code</a>
+                </li>
+            </ol>
+
+            <a id="API">
+                <h3>CREATING THE API</h3>
+            </a>
+            <P>
+                Now we should be inside of a git repo in our Virtual Enviornment with Flask and Pyselenium installed.
+                Our first step is creating the flaskAPI. This is simpler than it sounds and just requires a bit of
+                understanding on how different files interact in Python. In Python, we usually call a program that is
+                made up of a single piece of code a script. When a python file doesn’t just do one thing, we call it a
+                module. A module will usually be made up of several functions, that will be used by other code in
+                different places. This can be confusing, because both are usually the .py file type. A package is a
+                group of modules. To make a folder of .py files into a module, we need to add a new file to the folder:
+                __init__.py. This marks the folder as a package and allows us to import the modules from within it using
+                dot notation (dot notation means package.module, and is used to show the second item belongs to the
+                first).
+            </P>
+            <p>
+                We will use this to separate up the different commands to their respective services in the next section,
+                but for now it is how our main flaskAPI.py file will access the routes and flask app instance. In our
+                root
+                folder, we create a folder named API. This will have a file called __init__.py, which will contain the
+                following code:
+            </p>
+            <p class="code">
+                from flask import Flask
+                <br />
+                app = Flask(__name__)
+                <br />
+                from API import routes
+            </p>
+            <p>
+                This code imports the Flask module which we installed in step 2.10. It then creates a Flask instance and
+                names it app, before finally importing the routes module. The __init__.py file also has the special task
+                of marking the direcdtory it is in as a package, and allowing the other modules in that file to be
+                imported through the package. We will create the routes module now
+            </p>
+            <p>
+                Our routes file tells the flask app which code to execute for each URL path. We’ll start with a simple
+                test route:
+            </p>
+
+            <p class=code>
+                from API import app
+                <br /><br />
+                @app.route('/index')
+                <br />
+                def index():
+
+                <br /><span class="indent"></span>
+                return('Index')
+                </span>
+
+            </p>
+
+            <p>
+                What this does, is import the app variable we defined in our __init__.py file to be our flask instance,
+                and then uses @app.route to designate a path for a function, which is defined immediately afterwards.
+                Ours is simple, and just returns the word Index for testing. Now, we can run it.
+            </p>
+            <p>
+                To run it, we open a terminal in the root directory of our project (you can do this by opening the
+                folder in the file manager, then right clicking and select open terminal here). Then we run the
+                following commands:
+            </p>
+            <p class="code">
+                Export FLASK_APP=flaskAPI.py
+                <br />
+                flask run
+
+            </p>
+            <p>
+                These set the FLASK_APP environment variable to our main flaskAPI file, and then run the flask app. You
+                should see the following:
+            </p>
+            <img src="../images/Tutorial part 2/terminal.png" height=200rem class="screenshot">
+            <p>
+                Now go to <a href="http://localhost:5000/index">http://localhost:5000/index</a> in your web browser and
+                you will see:
+            </p>
+            <img src="../images/Tutorial part 2/testpage.png" height=200rem class="screenshot">
+            <p>
+                This means everything is working, and we can begin adding our services.
+            </p>
+
+
+            <a id="nextcloud">
+                <h3>NEXTCLOUD</h3>
+            </a>
+            <p>
+                Before we can install Nextcloud, we need to setup our services package. The way our code will work, is
+                that each service is a module that can be accessed by the routes file. To create the package for these
+                modules, add a new folder to your root folder called "services". Within it, create a new file called
+                __init__.py. This file is enough to mark the folder as a package, even without anything inside. You can
+                now add Nextcloud
+            </p>
+
+            <p>
+                We will begin with Nextcloud. The install used here is the same as in part 1 of this tutorial. Inside of
+                your Services folder, create Nextcloud.py. This is a module inside of the services package. Within it,
+                put the following code:
+            </p>
+
+            <p class="code">
+
+                from selenium import webdriver
+                <br />
+                from subprocess import call
+                <br /><br />
+                def install():
+                <br />
+                <span class="indent">call('sudo docker run -d -p 8080:80 --restart unless-stopped nextcloud', shell =
+                    True)</span>
+                <br /><br />
+                def setup(admin_username, password, url):
+                <br />
+                <span class="indent">browser = webdriver.Firefox()<br />
+                    <span class="indent">browser.get(url)
+                        <br />
+                        <span class="indent">username_field = browser.find_element_by_id('adminlogin')<br /></span>
+                        <span class="indent">username_field.send_keys(admin_username)<br /></span>
+                        <br />
+                        <span class="indent">password_field = browser.find_element_by_id('adminpass')<br /></span>
+                        <span class="indent">password_field.send_keys(password)<br /></span>
+                        <br />
+                        <span class="indent">login_button =
+                            browser.find_element_by_css_selector('.primary')<br /></span>
+                        <span class="indent">login_button.click()</span>
+
+            </p>
+
+            <p>
+                Let’s go through. First, we have our imports. In this module, we use Pyselenium to
+                access Nextcloud like a user and configure things normally only accessible within the GUI. We also use
+                subprocess.call() to run shell commands.
+            </p>
+            <p>
+                Our first method is the install. Installing Nextcloud with docker is very simple, and only requires a
+                single line of code, which will download and run it. You can see more detail on this in the previous
+                tutorial.
+            </p>
+            <p>
+                Next, we run through the setup process. The way I did this was by going through the process manually,
+                but never interacting with it directly. I would run each line of my code in the Python interpreter, and
+                check the result, eventually putting all of my code into a function.
+                The final result of this is what I have written above
+
+            </p>
+            <p class="code">
+                def setup(admin_username, password, url):
+            </p>
+            <p>
+                The function has 3 parameters, admin_username, password, and url. These are used throughout the process.
+            </p>
+            <p class="code">
+                Browser = webdriver.Firefox()
+            </p>
+            <p>
+                This is creating our browser object, and is how we interact with the website. If you are using a
+                different driver or browser, you can check the documentation for that here
+            </p>
+            <p class="code">
+                Browser.get(url)
+            </p>
+            <p>
+                This opens our browser to the url we passed in
+            </p>
+            <p>
+                The next sections identify a textbox, and then input our details into that text box. We do this by
+                assigning a variable to the textbox using id and CSS selectors (which you can get by rightclicking on
+                the text box and selecting inspect element). To add text to the box, we use the send keys function on
+                the variable
+            </p>
+
+            <p>
+                Now, we add the routes to these functions so our API can access them.
+                In our routes file, we will add the following line at the start
+
+            </p>
+            <p class="code">
+                from Services import InvoiceNinja, nextcloud
+            </p>
+            <p>
+                This imports the modules we created for our services from the Services package and lets our route file
+                use them
+            </p>
+            <p>
+                Then add these lines to the end of the file
+            </p>
+            <p class="code">
+                @app.route('/Nextcloud/install')<br />
+                def nextcloudInstall():<br />
+                <span class="indent">nextcloud.install()</span><br />
+                <span class="indent">print('Nextcloud installed')</span><br />
+                <span class="indent">return('Nextcloud installed')</span><br />
+                <br />
+                @app.route('/Nextcloud/setup')<br />
+                def nextcloudSetup():<br />
+                <span class="indent">nextcloud.setup('admin', 'P@$$word', 'localhost:8080')</span><br />
+                <span class="indent">print('Nextcloud setup complete')</span><br />
+                <span class="indent">return('Nextcloud setup complete')</span><br />
+
+            </p>
+
+            <p>
+                This defines our routes and creates the functions that will be ran when those routes are accessed. We
+                just use dot natation to go from the module we imported to the method we created. In the setup, we pass
+                in values to fill the parameters that we set. After calling our function inside that module, we print a
+                log to the console, and then also return text. This returning text will be displayed to the user on the
+                page
+            </p>
+
+            <a id="ininja">
+                <h3>INVOICE NINJA</h3>
+            </a>
+            <p>
+                We will create another file inside of the Services package called InvoiceNinja.py. We have some
+                imports to make:
+            </p>
+            <p class="code">
+                from selenium import webdriver<br />
+                import subprocess<br />
+                from selenium.webdriver.common.by import By<br />
+                from selenium.webdriver.support.ui import WebDriverWait<br />
+                from selenium.webdriver.support import expected_conditions as EC<br />
+            </p>
+            <p>
+                Now we will create the same functions that we created for the Nextcloud service: Install and Setup.
+                Invoice Ninja has a much more complex install and setup process. Rather than our single line, the
+                install function looks like this. I am just going to explain what the code does here. If you would like
+                to know more about the install process itself, please have a look at the prior tutorial
+            </p>
+            <p class="code">
+                def install():<br />
+                <span class="indent"> #Download the dockerfile</span>
+                <br /> <span class="indent"> subprocess.call("git clone
+                    https://github.com/invoiceninja/dockerfiles.git</span>
+                <br /> <span class="indent"> ./service_installs/invoice_ninja/Dockerfiles", shell=True)</span>
+                <br /> <span class="indent"> #generate key</span>
+                <br /> <span class="indent"> subprocess.call("sudo docker run --rm -it invoiceninja/invoiceninja php
+                    artisan key:generate</span>
+                <br /> <span class="indent"> --show >./service_installs/invoice_ninja/app_key.txt", shell=True)</span>
+                <br /> <span class="indent"> with open ("./service_installs/invoice_ninja/app_key.txt", "r") as
+                    key_file:</span>
+                <br /> <span class="indent"> <span class="indent"> contents=key_file.read()</span></span>
+                <br /> <span class="indent"> <span class="indent"> key =
+                        contents[contents.index("base64"):contents.index("base64")+51]</span></span>
+                <br /> <span class="indent"> print(key)</span>
+
+                <br /> <span class="indent"> #open env file and save as variable</span>
+                <br /> <span class="indent"> with open('./service_installs/invoice_ninja/Dockerfiles/env','r') as
+                    file:</span>
+                <br /> <span class="indent"> <span class="indent"> env = file.readlines()</span></span>
+                <br /> <span class="indent"> </span>
+                <br /> <span class="indent"> # change the app_key</span>
+                <br /> <span class="indent"> with open('./service_installs/invoice_ninja/Dockerfiles/env', 'w') as
+                    file:</span>
+                <br /> <span class="indent"> <span class="indent"> file.writelines( env )</span></span>
+
+
+                <br /> <span class="indent"> #open docker-compose file and save as variable</span>
+                <br /> <span class="indent"> with
+                    open('./service_installs/invoice_ninja/Dockerfiles/docker-compose.yml','r') as file:</span>
+                <br /> <span class="indent"> <span class="indent"> dcompose = file.readlines()</span></span>
+
+                <br /> <span class="indent"> # change the port</span>
+                <br /> <span class="indent"> dcompose[18] = ' - "8081:80"\n'</span>
+                <br /> <span class="indent"> # and write everything back</span>
+                <br /> <span class="indent"> with
+                    open('./service_installs/invoice_ninja/Dockerfiles/docker-compose.yml', 'w') as
+                    file:</span>
+                <br /> <span class="indent"> <span class="indent"> file.writelines( dcompose )</span></span>
+
+                <br /> <span class="indent"> #run it</span>
+                <br /> <span class="indent"> subprocess.call('sudo chown -R 1500:1500
+                    service_installs/invoice_ninja/Dockerfiles/docker/app',</span>
+                <br /> <span class="indent"> shell=True)</span>
+                <br /> <span class="indent"> subprocess.call("sudo docker-compose -f</span>
+                service_installs/invoice_ninja/Dockerfiles/docker-compose.yml up -d", shell=True)</span>
+            </p>
+            <p>
+                This code seems much more complicated, but it stills does quite simple things. First, we download the
+                Github repo for the project on line 12, and then we generate a key to use for the app. We will place the
+                key into a separate file, and then access it by searching for the beginning of it, and then selecting
+                the next 51 characters after that.
+            </p>
+            <p>
+                Next, we need to make some changes to our environment file. We save the file as an array, with each item
+                in the array being a line of the file. We access the specific lines we need to insert our app_key, and
+                then write the file back with the change made.
+            </p>
+            <p>
+                We repeat this with our docker-compose file in order to change the port the app will run on.
+            </p>
+            <p>
+                Finally, we run the code. First changing the permissions of all files to prevent issues, and then
+                running docker-compose up.
+            </p>
+
+            <p>
+                The setup function is even longer but is also quite simple. Like the Nextcloud setup, it involves
+                identifying the next field, and entering data into it.
+            </p>
+            <p>
+                Here is the complete code for the method:
+            </p>
+            <pre class="code">
+def setup(first_name, surname, password, url, email):
+    browser = webdriver.Firefox()
+    browser.get(url + '/setup')
+
+    #Clear cookie form
+    browser.find_element_by_xpath('/html/body/div[1]/div/a').click()
+
+    #put url in field
+    url_field = browser.find_element_by_name('url')
+    url_field.clear()
+    url_field.send_keys('http://' +url)
+
+    #click https to disable it
+    browser.find_element_by_name('https').click()
+    #Submit PDF test
+    browser.find_element_by_id('test-pdf').click()
+    
+    
+    
+    #wait for db section to load
+    WebDriverWait(browser, 1000).until(
+        EC.element_to_be_clickable((By.NAME, "db_host"))
+    )
+    #switch back to main tab, out of pdf
+    browser.switch_to.window(browser.window_handles[0])
+    
+    
+    #change DB_host
+    db_host_field = browser.find_element_by_name("db_host")
+    db_host_field.clear()
+    db_host_field.send_keys('db')
+    
+    #change db
+    db_host_field = browser.find_element_by_name('db_database')
+    db_host_field.clear()
+    db_host_field.send_keys('ninja')
+
+    #manually scroll down to prevent cookie div from covering button
+    browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    #Submit db test
+    browser.find_element_by_id('test-db-connection').click()
+
+    WebDriverWait(browser, 1000).until(
+        EC.element_to_be_clickable((By.ID, "test-smtp-connection"))
+    )
+    #manually scroll down to prevent cookie div from covering button
+    browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    #Submit email test
+    browser.find_element_by_id('test-smtp-connection').click()
+    WebDriverWait(browser, 1000).until(
+        EC.element_to_be_clickable((By.NAME, "first_name"))
+    )
+
+    #manually scroll down to prevent cookie div from covering button
+    browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    #fill in user details
+    browser.find_element_by_name("first_name").send_keys(first_name)
+    browser.find_element_by_name("last_name").send_keys(surname)
+    browser.find_element_by_name("email").send_keys(email)
+    browser.find_element_by_name("password").send_keys(password)
+    browser.find_element_by_name('terms_of_service').click()
+    browser.find_element_by_name('privacy_policy').click()
+    #Submit email test
+    browser.find_element_by_id('test-smtp-connection').click()
+            </pre>
+
+            <p>
+                There are 3 new things here compared to Nextcloud:
+            </p>
+            <ol>
+                <li>
+                    Waiting for the page to load
+                    <p>
+                        When setting up invoice Ninja, there are several parts that need to be tested, and you cannot
+                        fill the rest of the details in until that section has been tested. To get around this, Selenium
+                        clicks the button, and then waits for the next part of the page to load before continuing
+                    </p>
+                    <div class="code">
+                        WebDriverWait(browser, 1000).until(
+                        EC.element_to_be_clickable((By.NAME, "first_name"))
+                        )
+                    </div>
+                    <p>
+                        This runs the WebDriverWait function on our browser, which in effect pauses execution until the
+                        condition is met. The EC stands for expected condition, adn we imported it at the start of our
+                        file. It condition here is waiting for the element with the name "first_name" to be on the page
+                        and clickable. It will wait for this for 10 seconds, after which it will time out and produce an
+                        error
+                    </p>
+                </li>
+                <li>
+                    When we run the first of those tests, it generates a PDF which our browser automatically opens. We
+                    need to then switch back to the original tab
+                    <p class="code">
+                        browser.switch_to.window(browser.window_handles[0])
+                    </p>
+                </li>
+                <li>
+                    When attempting to reach a button at the bottom of the page, the browser encounters an error. This
+                    is because of the cookie banner along the bottom. Even when we dismiss it, and invisible div is
+                    still on the page, and blocks our clicks at the bottom. Selenium's auto scrolling only just goes far
+                    enough to place the item onto the bottom, which means it cannot reach these buttons. We need to
+                    manually scroll the page further to prevent this issue
+                    <p class="code">
+                        browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                    </p>
+                </li>
+            </ol>
+
+            <p>
+                Now, we go back to our routes file, and add the following
+            </p>
+            <pre class="code">
+    @app.route('/InvoiceNinja/install')
+    def InvoiceNinjaInstall():
+        InvoiceNinja.install()
+        print('Invoice Ninja installed')
+        return('Invoice Ninja installed')
+     
+     @app.route('/InvoiceNinja/setup')
+     def InvoiceNinjaSetup():
+       InvoiceNinja.setup('first_name', 'surname', 'password', 'in.localhost:8081', 'test@email.com')
+        print('Invoice Ninja setup complete')
+        return('Invoice Ninja setup complete')                
+            </pre>
+            <p>
+                This is very similar to the Nextcloud entry, and I hope that illustrates how expandable this system is,
+                as each command follows the same structure in the routes file.
+            </p>
+
+            <a id="run">
+                <h3>RUNNING THE PROJECT</h3>
+            </a>
+            <p>The project can now be ran and used with the same commands as before</p>
+            <p class="code">
+                Export FLASK_APP=flaskAPI.py<br />
+                flask run
+            </p>
+            <p>
+                To use it, go to http://localhost:5000/ [INSERT ROUTE HERE]
+            </p>
+
+
+            <a id="share">
+                <h3>SHARING THE PROJECT</h3>
+            </a>
+            <p>
+                Now we need to share our project and the best way to do that is GitHub. In our terminal, we run
+            </p>
+            <p class="code">
+                git add -A<br />
+
+                git push
+
+            </p>
+            <p>
+                Now our project can be accessed anywhere. You can download a zip file containing all of the code from
+                github, or you can use git clone, which is what we will do for our install script
+            </p>
+            <p>
+                This is not really how git is supposed to be used. It is a ersion control system, and that means it is
+                much better to be regularly committing all of your changes to git rather than a single large commit at
+                the end. There is a lot of information on proper use of git however, and it would require several other
+                tutorials for meto explain it all. Luckily, there are already plenty of people who have made those
+                tutorials. Here are some that I've found particularly helpful
+            </p>
+            <ul>
+                <li><a href="https://www.atlassian.com/git/tutorials">Atlassian Git</a>
+                    <p>This tutorial is the one that I will most frequently check when I need to refernce something</p>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=SWYqp7iY_Tc">Traversy Media</a>
+                    <p>
+                        This is a video which explains Git and the basic use. I found it really helpful when I was first
+                        learning how to use it
+                    </p>
+                </li>
+            </ul>
+            <a id="script">
+                <h3>INSTALL SCRIPT</h3>
+            </a>
+            <p>
+                Finally we need to make an install script that you will install all prerequisites and launch the API.
+                The code below will do it, just save it as install.sh. The only part you need to change is the link to
+                the project repo, because you will use the link to your own repo instead. (You can get this by clicking
+                on the code button, and then copying the link that appears)
+            </p>
+            <pre class="code">
+#! /bin/sh
+
+sudo apt-get remove docker docker-engine docker.io containerd runc 
+sudo apt update 
+sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common 
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
+sudo apt update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt install docker-compose 
+                
+sudo apt install git
+  
+git clone [THE LINK YOU GOT FROM GITHUB]
+                
+cd CSChallenges-Jackalope
+                
+pip install flask
+pip install -U pyselenium 
+flask run
+                
+            </pre>
+            <p>
+                This is a shell script which runs all of the commands that you have ran today automatically, downloads
+                your code, and then runs it automatically. The great part is that looking at it, it should be no
+                different do anything you have already done. It is just a list of commands. To make it work fully, it
+                does require you to make one change to your GitHub repo, and that is adding the Geckodriver file to it.
+                It then copies the file into the Path folder
+            </p>
+            <a id="conclusion">
+                <h3>CONCLUSION</h3>
+            </a>
+            <p>
+                This tutorial may be finished, but I am already working on building a front end interface for the ervices
+                to interact with my API, and greatly exapnding the control capabilities for my services. In the mean
+                time, congratulations! You have built a functional automated installer for an entire tech stack. You
+                should work on expanding your installer, branching it out into more services, and adding new functions
+                to your existing services. Anything you need for your busiess is possible. Good luck!
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
